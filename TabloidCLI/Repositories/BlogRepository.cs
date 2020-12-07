@@ -50,6 +50,24 @@ namespace TabloidCLI.Repositories
             }
         }
     }
+
+        public void Insert(Blog blog)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using(SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Blog (Title, URL) 
+                                        VALUES (@title, @url)";
+
+                    cmd.Parameters.AddWithValue("@title", blog.Title);
+                    cmd.Parameters.AddWithValue("@url", blog.Url);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
    /* public Blog Get(int id)
     {
         using(SqlConnection conn = Connection)
