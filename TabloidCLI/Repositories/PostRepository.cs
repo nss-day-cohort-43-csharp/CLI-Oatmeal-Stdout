@@ -21,7 +21,6 @@ namespace TabloidCLI
                                         Title,
                                         URL,
                                         PublishDateTime
-
                                         FROM Post";
 
                     //AuthorId,
@@ -41,7 +40,12 @@ namespace TabloidCLI
                             //BlogId = reader.GetInt32(reader.GetOrdinal("BlogId"))
 
                         };
+                        posts.Add(post);
+
                     }
+                    reader.Close();
+
+                    return posts;
                 }
             }
             
@@ -50,6 +54,14 @@ namespace TabloidCLI
         public Post Get(int id)
         {
             throw new NotImplementedException();
+            //using (SqlConnection conn = Connection)
+            //{
+            //    conn.Open();
+            //    using (SqlCommand cmd = conn.CreateCommand())
+            //    {
+            //        cmd.CommandText = @"Select "
+            //    }
+            //}
         }
 
         public List<Post> GetByAuthor(int authorId)
@@ -112,7 +124,21 @@ namespace TabloidCLI
 
         public void Insert(Post post)
         {
-            throw new NotImplementedException();
+            //throw new NotImplementedException();
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"INSERT INTO Post (Title, URL, PublishDateTime)
+                                                VALUES @title, @url, @publishDateTime";
+                    cmd.Parameters.AddWithValue("@title", post.Title);
+                    cmd.Parameters.AddWithValue("@url", post.Url);
+                    cmd.Parameters.AddWithValue("@publishDateTime", post.PublishDateTime);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
         }
 
         public void Update(Post post)
