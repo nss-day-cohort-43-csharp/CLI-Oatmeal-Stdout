@@ -7,13 +7,13 @@ namespace TabloidCLI.UserInterfaceManagers
 {
     public class PostManager : IUserInterfaceManager
     {
-        private readonly IUserInterfaceManager _parentIU;
+        private readonly IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
         private string _connectionString;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
-            _parentIU = parentUI;
+            _parentUI = parentUI;
             _postRepository = new PostRepository(connectionString);
             _connectionString = connectionString;
         }
@@ -23,9 +23,9 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.WriteLine("Post Menu");
             Console.WriteLine("1) List Posts");
             Console.WriteLine("2) Add Post");
-            Console.WriteLine(" 4) Edit Post");
-            Console.WriteLine(" 5) Remove Post");
-            Console.WriteLine(" 0) Go Back");
+            Console.WriteLine("4) Edit Post");
+            Console.WriteLine("5) Remove Post");
+            Console.WriteLine("0) Go Back");
 
             Console.Write("> ");
             string choice = Console.ReadLine();
@@ -36,14 +36,16 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "2":
                     Add();
                     return this;
-                //case "3":
-                //    Edit();
-                //    return this;
-                //case "4":
-                //    Remove();
-                //    return this;
-                //case "0":
-                //    return _parentUI;
+                case "3":
+                    Console.WriteLine("Sorry, that doesn't seem to be working. Please select something else.");
+                    //Edit();
+                    return this;
+                case "4":
+                    Console.WriteLine("Sorry, that doesn't seem to be working. Please select something else.");
+                    //Remove();
+                    return this;
+                case "0":
+                    return _parentUI;
 
                 default:
                     Console.WriteLine("Invalid Selection");
