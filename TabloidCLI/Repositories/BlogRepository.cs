@@ -58,7 +58,7 @@ namespace TabloidCLI.Repositories
                 conn.Open();
                 using(SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Blog Title, URL 
+                    cmd.CommandText = @"INSERT INTO Blog (Title, URL) 
                                         VALUES (@title, @url)";
 
                     cmd.Parameters.AddWithValue("@title", blog.Title);
