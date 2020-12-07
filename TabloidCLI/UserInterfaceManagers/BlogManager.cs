@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using System.Text;
 using TabloidCLI.Repositories;
+using TabloidCLI.Models;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
@@ -35,9 +36,7 @@ namespace TabloidCLI.UserInterfaceManagers
             switch(choice)
             {
                 case "1":
-                    Console.WriteLine("We're sorry, that function is unavailable");
-                    Console.WriteLine("Please make another selection");
-                    Console.WriteLine();
+                    List();
                     return this;
                 case "2":
                     Console.WriteLine("We're sorry, that function is unavailable");
@@ -64,6 +63,19 @@ namespace TabloidCLI.UserInterfaceManagers
                 default:
                     Console.WriteLine("Invalid Selection");
                     return this;
+            }
+        }
+
+        //Helper Methods to reduce size of switchboard
+        private void List()
+            //going into the _blogRepository to utilize the GetAll function found there
+        {
+            List<Blog> blogs = _blogRepository.GetAll();
+            foreach(Blog b in blogs)
+            {
+                Console.WriteLine($"{b.Id}.) {b.Title}");
+                Console.WriteLine($"{b.Url}");
+                Console.WriteLine();
             }
         }
     }
