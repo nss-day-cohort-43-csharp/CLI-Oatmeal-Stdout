@@ -60,8 +60,7 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("title ");
             journal.Title = Console.ReadLine();
 
-            //Console.Write("Date Created:");
-            //journal.CreatedDateTime = Console.ReadLine();
+            journal.CreateDateTime = DateTime.Now;
 
             Console.Write("Entry ");
             journal.Content = Console.ReadLine();
