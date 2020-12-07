@@ -20,11 +20,13 @@ namespace TabloidCLI
                     cmd.CommandText = @"SELECT id,
                                         Title,
                                         URL,
-                                        PublishDateTime
+                                        PublishDateTime,
+                                        AuthorId,
+                                        BlogId,
+
                                         FROM Post";
 
-                    //AuthorId,
-                    //BlogId,
+
                     List<Post> posts = new List<Post>();
 
                     SqlDataReader reader = cmd.ExecuteReader();
@@ -36,8 +38,8 @@ namespace TabloidCLI
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Url = reader.GetString(reader.GetOrdinal("URL")),
                             PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
-                            //AuthorId = reader.GetInt32(reader.GetOrdinal("AuthorId")),
-                            //BlogId = reader.GetInt32(reader.GetOrdinal("BlogId"))
+                            AuthorId = reader.GetInt32(reader.GetOrdinal("AuthorId")),
+                            BlogId = reader.GetInt32(reader.GetOrdinal("BlogId"))
 
                         };
                         posts.Add(post);
@@ -59,7 +61,18 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"Select p.";
+                    cmd.CommandText = @"SELECT p.Id AS PostId,
+                                                p.Title,
+                                                p.PublishDateTime,
+                                                p.URL,
+                                                a.Id as AuthorId,
+                                                a.FirstName,
+                                                a.LastName,
+                                                b.Id as BlogId
+                                                FROM Post p
+                                                LEFT JOIN Author a on a.Id = p.AuthorId
+                                                LEFT JOIN Blog b on b.Id = p.BlogId
+                                            WHERE p.id = @id";
 
                     cmd.Parameters.AddWithValue("@id", id);
 
@@ -76,8 +89,8 @@ namespace TabloidCLI
                                 Title = reader.GetString(reader.GetOrdinal("Title")),
                                 Url = reader.GetString(reader.GetOrdinal("URL")),
                                 PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
-                                //AuthorId = reader.GetInt32(reader.GetOrdinal("AuthorId")),
-                                //BlogId = reader.GetInt32(reader.GetOrdinal("BlogId"))
+                                AuthorId = reader.GetInt32(reader.GetOrdinal("AuthorId")),
+                                BlogId = reader.GetInt32(reader.GetOrdinal("BlogId"))
                             };
                         }
                         //if (!reader.IsDBNull(reader.GetOrdinal(TagId)))
@@ -164,13 +177,13 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Post (Title, URL, PublishDateTime)
-                                                VALUES (@title, @url, @publishDateTime)";
+                    cmd.CommandText = @"INSERT INTO Post (Title, URL, PublishDateTime, AuthorId, BlogId)
+                                                VALUES (@title, @url, @publishDateTime, @authorId, @blogId)";
                     cmd.Parameters.AddWithValue("@title", post.Title);
                     cmd.Parameters.AddWithValue("@url", post.Url);
                     cmd.Parameters.AddWithValue("@publishDateTime", post.PublishDateTime);
-                    cmd.Parameters.AddWithValue("@authorId", 1);
-                    cmd.Parameters.AddWithValue("@blogId", 1);
+                    cmd.Parameters.AddWithValue("@authorId", post.AuthorId);
+                    cmd.Parameters.AddWithValue("@blogId", post.BlogId);
 
                     cmd.ExecuteNonQuery();
                 }
