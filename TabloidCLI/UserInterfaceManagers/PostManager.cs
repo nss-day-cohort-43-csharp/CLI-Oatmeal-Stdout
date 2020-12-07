@@ -22,6 +22,10 @@ namespace TabloidCLI.UserInterfaceManagers
         {
             Console.WriteLine("Post Menu");
             Console.WriteLine("1) List Posts");
+            Console.WriteLine("2) Add Post");
+            Console.WriteLine(" 4) Edit Post");
+            Console.WriteLine(" 5) Remove Post");
+            Console.WriteLine(" 0) Go Back");
 
             Console.Write("> ");
             string choice = Console.ReadLine();
@@ -32,6 +36,14 @@ namespace TabloidCLI.UserInterfaceManagers
                 case "2":
                     Add();
                     return this;
+                //case "3":
+                //    Edit();
+                //    return this;
+                //case "4":
+                //    Remove();
+                //    return this;
+                //case "0":
+                //    return _parentUI;
 
                 default:
                     Console.WriteLine("Invalid Selection");
@@ -61,8 +73,8 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Url: ");
             post.Url = Console.ReadLine();
 
-            //Console.Write("Date/Time: ");
-            //post.PublishDateTime = Console.ReadLine();
+            Console.Write("Date/Time: ");
+            post.PublishDateTime = DateTime.Parse(Console.ReadLine());
 
             _postRepository.Insert(post);
         }
