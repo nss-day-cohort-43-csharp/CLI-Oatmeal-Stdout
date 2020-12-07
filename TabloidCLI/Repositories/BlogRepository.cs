@@ -29,15 +29,16 @@ namespace TabloidCLI.Repositories
             using (SqlCommand cmd = conn.CreateCommand())
             {
                 //remember that SQL receives text for directions in out to output information
-                cmd.CommandText = "SELECT Title, URL FROM Blog";
+                cmd.CommandText = "SELECT Id, Title, URL FROM Blog";
 
                 List<Blog> blogs = new List<Blog>();
 
                 SqlDataReader reader = cmd.ExecuteReader();
                 while(reader.Read())
                 {
-                    Blog blog = new Blog()
-                    {
+                        Blog blog = new Blog()
+                        {
+                        Id = reader.GetInt32(reader.GetOrdinal("Id")),
                         Title = reader.GetString(reader.GetOrdinal("Title")),
                         Url = reader.GetString(reader.GetOrdinal("URL"))
                     };
