@@ -22,7 +22,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
-            Blog blog = _blogRepository.Get(_blogId)
+            // Blog blog = _blogRepository.Get(_blogId);
+            return null;
         }
     }
 }

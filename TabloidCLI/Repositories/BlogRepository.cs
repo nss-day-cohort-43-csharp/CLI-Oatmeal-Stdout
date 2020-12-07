@@ -5,6 +5,7 @@ using TabloidCLI.Models;
 using TabloidCLI.Repositories;
 
 namespace TabloidCLI.Repositories
+{ 
     //Needed to create reposity of methods to use Blog.cs
     //Tabloid is using an interface found in IRepository that uses IRepository<TEntity> (TEntity in his case being Blog)
     //Class should inherit the connector field and connection methods from DatabaseConnector
@@ -48,6 +49,17 @@ namespace TabloidCLI.Repositories
             }
         }
     }
-
+   /* public Blog Get(int id)
+    {
+        using(SqlConnection conn = Connection)
+        {
+            conn.Open();
+            //Second step is to create command instructions
+            using(SqlCommand cmd = conn.CreateCommand)
+            {
+                cmd.CommandText = ""
+            }
+        }
+    }*/
 }
 }
