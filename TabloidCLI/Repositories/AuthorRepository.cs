@@ -39,7 +39,7 @@ namespace TabloidCLI
                     }
 
                     reader.Close();
-
+                     
                     return authors;
                 }
             }
