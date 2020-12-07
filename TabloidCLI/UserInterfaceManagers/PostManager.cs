@@ -29,6 +29,9 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 case "1":
                     return this;
+                case "2":
+                    Add();
+                    return this;
 
                 default:
                     Console.WriteLine("Invalid Selection");
@@ -45,6 +48,23 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine(post);
             }
+        }
+
+        private void Add()
+        {
+            Console.WriteLine("New Author");
+            Post post = new Post();
+
+            Console.Write("Title: ");
+            post.Title = Console.ReadLine();
+
+            Console.Write("Url: ");
+            post.Url = Console.ReadLine();
+
+            //Console.Write("Date/Time: ");
+            //post.PublishDateTime = Console.ReadLine();
+
+            _postRepository.Insert(post);
         }
 
             
