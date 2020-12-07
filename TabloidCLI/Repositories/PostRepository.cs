@@ -164,11 +164,13 @@ namespace TabloidCLI
                 conn.Open();
                 using (SqlCommand cmd = conn.CreateCommand())
                 {
-                    cmd.CommandText = @"INSERT INTO Post (Title, URL, PublishDateTime, AuthorId, BlogId)
-                                                VALUES @title, @url, @publishDateTime, @authorId, @blogId";
+                    cmd.CommandText = @"INSERT INTO Post (Title, URL, PublishDateTime)
+                                                VALUES (@title, @url, @publishDateTime)";
                     cmd.Parameters.AddWithValue("@title", post.Title);
                     cmd.Parameters.AddWithValue("@url", post.Url);
                     cmd.Parameters.AddWithValue("@publishDateTime", post.PublishDateTime);
+                    cmd.Parameters.AddWithValue("@authorId", 1);
+                    cmd.Parameters.AddWithValue("@blogId", 1);
 
                     cmd.ExecuteNonQuery();
                 }
