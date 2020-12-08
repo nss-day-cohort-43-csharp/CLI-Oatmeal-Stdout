@@ -188,6 +188,10 @@ namespace TabloidCLI
                     cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
                     cmd.Parameters.AddWithValue("@blogId", post.Blog.Id);
 
+                    //int id = (int)cmd.ExecuteScalar();
+
+                    //post.Id = id;
+
                     cmd.ExecuteNonQuery();
                 }
             }
