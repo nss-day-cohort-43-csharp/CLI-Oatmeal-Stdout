@@ -23,11 +23,11 @@ namespace TabloidCLI
                                         PublishDateTime,
                                         AuthorId,
                                         BlogId,
-
                                         FROM Post";
 
 
                     List<Post> posts = new List<Post>();
+
 
                     SqlDataReader reader = cmd.ExecuteReader();
                     while (reader.Read())
@@ -38,8 +38,12 @@ namespace TabloidCLI
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Url = reader.GetString(reader.GetOrdinal("URL")),
                             PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
-                            AuthorId = reader.GetInt32(reader.GetOrdinal("AuthorId")),
-                            BlogId = reader.GetInt32(reader.GetOrdinal("BlogId"))
+                            Author = new Author()
+                            {
+                                Id = reader.GetInt32(reader.GetOrdinal("AuthorId")),
+                                FirstName = reader.GetString(reader.GetOrdinal("FirstName"))
+                            },
+                            Blog = null
 
                         };
                         posts.Add(post);
@@ -89,8 +93,16 @@ namespace TabloidCLI
                                 Title = reader.GetString(reader.GetOrdinal("Title")),
                                 Url = reader.GetString(reader.GetOrdinal("URL")),
                                 PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
-                                AuthorId = reader.GetInt32(reader.GetOrdinal("AuthorId")),
-                                BlogId = reader.GetInt32(reader.GetOrdinal("BlogId"))
+                                Author = new Author
+                                {
+                                    FirstName = reader.GetString(reader.GetOrdinal("FirstName")),
+                                    LastName = reader.GetString(reader.GetOrdinal("LastName"))
+
+                                },
+                                Blog = new Blog
+                                {
+                                    Title = reader.GetString(reader.GetOrdinal("BlogTitle"))
+                                }
                             };
                         }
                         //if (!reader.IsDBNull(reader.GetOrdinal(TagId)))
@@ -182,8 +194,8 @@ namespace TabloidCLI
                     cmd.Parameters.AddWithValue("@title", post.Title);
                     cmd.Parameters.AddWithValue("@url", post.Url);
                     cmd.Parameters.AddWithValue("@publishDateTime", post.PublishDateTime);
-                    cmd.Parameters.AddWithValue("@authorId", post.AuthorId);
-                    cmd.Parameters.AddWithValue("@blogId", post.BlogId);
+                    cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
+                    cmd.Parameters.AddWithValue("@blogId", post.Blog.Id);
 
                     cmd.ExecuteNonQuery();
                 }
