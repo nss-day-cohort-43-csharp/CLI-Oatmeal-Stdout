@@ -37,6 +37,7 @@ namespace TabloidCLI.UserInterfaceManagers
             switch (choice)
             {
                 case "1":
+                    List();
                     return this;
                 case "2":
                     Add();
@@ -89,6 +90,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine($"{author.Id} {author.FullName}");
             }
+            post.Author = authors[int.Parse(Console.ReadLine()) - 1];
 
             Console.WriteLine("Please select a Blog: ");
             List<Blog> blogs = _blogRepository.GetAll();
@@ -96,6 +98,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine($"{blog.Id} {blog.Title}");
             }
+            post.Blog = blogs[int.Parse(Console.ReadLine()) - 1];
 
             _postRepository.Insert(post);
         }

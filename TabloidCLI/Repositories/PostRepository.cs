@@ -22,7 +22,7 @@ namespace TabloidCLI
                                         URL,
                                         PublishDateTime,
                                         AuthorId,
-                                        BlogId,
+                                        BlogId
                                         FROM Post";
 
 
@@ -38,11 +38,7 @@ namespace TabloidCLI
                             Title = reader.GetString(reader.GetOrdinal("Title")),
                             Url = reader.GetString(reader.GetOrdinal("URL")),
                             PublishDateTime = reader.GetDateTime(reader.GetOrdinal("PublishDateTime")),
-                            Author = new Author()
-                            {
-                                Id = reader.GetInt32(reader.GetOrdinal("AuthorId")),
-                                FirstName = reader.GetString(reader.GetOrdinal("FirstName"))
-                            },
+                            Author = null,
                             Blog = null
 
                         };
@@ -174,7 +170,6 @@ namespace TabloidCLI
 
         public void Insert(Post post)
         {
-            //throw new NotImplementedException();
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
