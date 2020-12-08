@@ -48,8 +48,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     Console.WriteLine();
                     return this;
                 case "4":
-                    Console.WriteLine("We're sorry, that function is unavailable");
-                    Console.WriteLine("Please make another selection");
+                    Edit();
                     Console.WriteLine();
                     return this;
                 case "5":
@@ -123,6 +122,36 @@ namespace TabloidCLI.UserInterfaceManagers
                 Url = url
             };
             _blogRepository.Insert(blog);
+        }
+
+        private void Edit()
+        {
+            Blog blogToEdit = Choose("What blog would you like to update?");
+
+            if(blogToEdit == null)
+            {
+                return;
+            }
+
+            Console.WriteLine($"Current Title: {blogToEdit.Title}");
+            Console.WriteLine("What would you like to update the title to?");
+            Console.WriteLine(">");
+            string title = Console.ReadLine();
+            if(!String.IsNullOrWhiteSpace(title))
+            {
+                blogToEdit.Title = title;
+            }
+
+            Console.WriteLine("Please type the new URL");
+            Console.WriteLine(">");
+            string url = Console.ReadLine();
+            if(!String.IsNullOrWhiteSpace(url))
+            {
+                blogToEdit.Url = url;
+            }
+
+            _blogRepository.Update(blogToEdit);
+            
         }
 
         private void Remove()
