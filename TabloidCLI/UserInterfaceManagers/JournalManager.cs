@@ -25,7 +25,7 @@ namespace TabloidCLI.UserInterfaceManagers
             //Console.WriteLine(" 3) Edit Journal Entry");
             Console.WriteLine(" 4) Remove Journal Entry");
             Console.WriteLine(" 0) Return to Main Menu");
-            //Console.Write("> ");
+            Console.Write("> ");
             string choice = Console.ReadLine();
             switch (choice)
             {
