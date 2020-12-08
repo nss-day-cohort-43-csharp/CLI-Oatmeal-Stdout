@@ -2,6 +2,7 @@
 using System.Collections.Generic;
 using TabloidCLI.Models;
 using System.Text;
+using TabloidCLI.Repositories;
 
 namespace TabloidCLI.UserInterfaceManagers
 {
@@ -10,12 +11,16 @@ namespace TabloidCLI.UserInterfaceManagers
         private readonly IUserInterfaceManager _parentUI;
         private PostRepository _postRepository;
         private string _connectionString;
+        private AuthorRepository _authorRepository;
+        private BlogRepository _blogRepository;
 
         public PostManager(IUserInterfaceManager parentUI, string connectionString)
         {
             _parentUI = parentUI;
             _postRepository = new PostRepository(connectionString);
             _connectionString = connectionString;
+            _authorRepository = new AuthorRepository(connectionString);
+            _blogRepository = new BlogRepository(connectionString);
         }
 
         public IUserInterfaceManager Execute()
@@ -80,6 +85,17 @@ namespace TabloidCLI.UserInterfaceManagers
 
             Console.WriteLine("Please select an Author: ");
             List<Author> authors = _authorRepository.GetAll();
+            foreach (Author author in authors)
+            {
+                Console.WriteLine($"{author.Id} {author.FullName}");
+            }
+
+            Console.WriteLine("Please select a Blog: ");
+            List<Blog> blogs = _blogRepository.GetAll();
+            foreach (Blog blog in blogs)
+            {
+                Console.WriteLine($"{blog.Id} {blog.Title}");
+            }
 
             _postRepository.Insert(post);
         }
