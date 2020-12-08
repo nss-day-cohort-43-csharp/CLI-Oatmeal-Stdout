@@ -99,19 +99,10 @@ namespace TabloidCLI
                                     LastName = reader.GetString(reader.GetOrdinal("LastName"))
 
                                 },
-                                Blog = new Blog
-                                {
-                                    Title = reader.GetString(reader.GetOrdinal("BlogTitle"))
-                                }
+                                Blog = null,
                             };
                         }
-                        //if (!reader.IsDBNull(reader.GetOrdinal(TagId)))
-                        //{
-                        //    post.Tags.Add(new Tag()
-                        //    {
-                        //        Id = reader.GetInt32(reader.GetOrdinal)
-                        //    }
-                        //}
+
                     }
 
                     reader.Close();
