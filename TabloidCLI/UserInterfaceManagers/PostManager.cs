@@ -89,19 +89,21 @@ namespace TabloidCLI.UserInterfaceManagers
 
             Console.WriteLine("Please select an Author: ");
             List<Author> authors = _authorRepository.GetAll();
-            foreach (Author author in authors)
+            for (int i = 0; i < authors.Count; i++)
             {
-                Console.WriteLine($"{author.Id} {author.FullName}");
+                Author author = authors[i];
+                Console.WriteLine($"{i + 1} {author.FullName}");
             }
             post.Author = authors[int.Parse(Console.ReadLine()) - 1];
 
             Console.WriteLine("Please select a Blog: ");
             List<Blog> blogs = _blogRepository.GetAll();
-            foreach (Blog blog in blogs)
+            for (int i = 0; i < blogs.Count; i++)
             {
-                Console.WriteLine($"{blog.Id} {blog.Title}");
+                Blog blog = blogs[i];
+                Console.WriteLine($"{i + 1} {blog.Title}");
             }
-            post.Blog = blogs[int.Parse(Console.ReadLine()) - 1];
+            post.Blog = blogs[int.Parse(Console.ReadLine()) -1 ];
 
             _postRepository.Insert(post);
         }
@@ -148,4 +150,5 @@ namespace TabloidCLI.UserInterfaceManagers
 
             
     }
+
 }
