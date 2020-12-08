@@ -43,8 +43,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     Add();
                     return this;
                 case "3":
-                    Console.WriteLine("Sorry, that doesn't seem to be working. Please select something else.");
-                    //Edit();
+                    Edit();
                     return this;
                 case "4":
                     Remove();
@@ -106,6 +105,43 @@ namespace TabloidCLI.UserInterfaceManagers
             post.Blog = blogs[int.Parse(Console.ReadLine()) -1 ];
 
             _postRepository.Insert(post);
+        }
+
+        private void Edit()
+        {
+            Post postToEdit = Choose("Which post would you like to edit?");
+            if (postToEdit == null)
+            {
+                return;
+            }
+
+            Console.WriteLine();
+            Console.Write("New Title (press enter to leave unchanged: ");
+            string title = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                postToEdit.Title = title;
+            }
+
+            Console.Write("New URL (press enter to leave unchanged): ");
+            string url = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(url))
+            {
+                postToEdit.Url = url;
+            }
+
+            //DateTime publishDateTime = new DateTime();
+
+            Console.Write("New Date (press enter to leave unchanged): ");
+            DateTime publishDateTime = DateTime.Parse(Console.ReadLine());
+            if (publishDateTime != null) 
+            {
+                postToEdit.PublishDateTime = publishDateTime;
+            }
+
+            _postRepository.Update(postToEdit);
+
+
         }
 
         private Post Choose(string prompt = null)
