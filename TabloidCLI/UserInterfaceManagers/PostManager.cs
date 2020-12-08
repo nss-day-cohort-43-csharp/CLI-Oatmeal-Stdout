@@ -78,6 +78,9 @@ namespace TabloidCLI.UserInterfaceManagers
             Console.Write("Date/Time: ");
             post.PublishDateTime = DateTime.Parse(Console.ReadLine());
 
+            Console.WriteLine("Please select an Author: ");
+            List<Author> authors = _authorRepository.GetAll();
+
             _postRepository.Insert(post);
         }
 
