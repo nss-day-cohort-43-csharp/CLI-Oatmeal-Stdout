@@ -76,7 +76,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         private void Add()
         {
-            Console.WriteLine("New Author");
+            Console.WriteLine("New Post");
             Post post = new Post();
 
             Console.Write("Title: ");
