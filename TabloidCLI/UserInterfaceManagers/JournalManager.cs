@@ -19,14 +19,16 @@ namespace TabloidCLI.UserInterfaceManagers
         }
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine();
             Console.WriteLine("Journal Menu");
             Console.WriteLine(" 1) List Journal Entries");
             Console.WriteLine(" 2) Add New Journal Entry");
-            //Console.WriteLine(" 3) Edit Journal Entry");
+            Console.WriteLine(" 3) Edit Journal Entry");
             Console.WriteLine(" 4) Remove Journal Entry");
             Console.WriteLine(" 0) Return to Main Menu");
-            //Console.Write("> ");
+            Console.Write("> ");
             string choice = Console.ReadLine();
+            Console.WriteLine("");
             switch (choice)
             {
                 case "1":
@@ -34,6 +36,9 @@ namespace TabloidCLI.UserInterfaceManagers
                     return this;
                 case "2":
                     Add();
+                    return this;
+                case "3":
+                    Edit();
                     return this;
                 case "4":
                     Remove();
@@ -52,10 +57,12 @@ namespace TabloidCLI.UserInterfaceManagers
             List<Journal> entries = _journalRepository.GetAll();
             foreach (Journal entry in entries)
             {
+                Console.WriteLine("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+                Console.WriteLine();
                 Console.WriteLine($"Entry {entry.Id}: {entry.Title}");
                 Console.WriteLine($"Created on: {entry.CreateDateTime}");
                 Console.WriteLine($"Entry Content: {entry.Content}");
-                Console.WriteLine("");
+                Console.WriteLine();
             }
         }
 
@@ -70,7 +77,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
             journal.CreateDateTime = DateTime.Now;
 
-            Console.Write("What's on your mind?");
+            Console.Write("What's on your mind? ");
             journal.Content = Console.ReadLine();
 
             _journalRepository.Insert(journal);
@@ -117,6 +124,31 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine("Invalid Selection");
                 return null;
             }
+        }
+        private void Edit()
+        {
+            Journal entrySelected = Choose("What entry do you want to edit?");
+            if (entrySelected == null)
+            {
+                return;
+            }
+            Console.WriteLine();
+            Console.WriteLine("What's the new title?");
+            string title = Console.ReadLine();
+            Console.WriteLine();
+    //IsNullOrWhiteSpace will check if the string is null, empty or is only spaces
+            if (!string.IsNullOrWhiteSpace(title))
+            {
+                entrySelected.Title = title;
+            }
+            Console.WriteLine("Edit the content of your entry: ");
+            string content = Console.ReadLine();
+            if (!string.IsNullOrWhiteSpace(content))
+            {
+                entrySelected.Content = content;
+            }
+            //save to repo
+            _journalRepository.Update(entrySelected);
         }
     }
 }

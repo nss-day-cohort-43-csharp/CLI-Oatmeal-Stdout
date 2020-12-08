@@ -65,7 +65,7 @@ namespace TabloidCLI
                 }
             }
         }
-        //To delete
+     //To delete
         public void Delete(int id)
         {
             using (SqlConnection conn = Connection)
@@ -75,6 +75,29 @@ namespace TabloidCLI
                 {
                     cmd.CommandText = @"DELETE FROM JOurnal WHERE id = @id";
                     cmd.Parameters.AddWithValue("@id", id);
+
+                    cmd.ExecuteNonQuery();
+                }
+            }
+        }
+    //To edit
+        public void Update(Journal journal)
+        {
+            using (SqlConnection conn = Connection)
+            {
+                conn.Open();
+                using (SqlCommand cmd = conn.CreateCommand())
+                {
+                    cmd.CommandText = @"UPDATE Journal
+                                            SET Title= @Title,
+                                            Content = @Content,
+                                            CreateDateTime = @CreateDateTime
+                                            WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", journal.Id);
+                    cmd.Parameters.AddWithValue("@Title", journal.Title);
+                    cmd.Parameters.AddWithValue("@Content", journal.Content);
+                    cmd.Parameters.AddWithValue("@CreateDateTIme", journal.CreateDateTime);
+
 
                     cmd.ExecuteNonQuery();
                 }
