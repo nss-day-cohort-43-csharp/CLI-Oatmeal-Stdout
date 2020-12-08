@@ -53,8 +53,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     Console.WriteLine();
                     return this;
                 case "5":
-                    Console.WriteLine("We're sorry, that function is unavailable");
-                    Console.WriteLine("Please make another selection");
+                    Remove();
                     Console.WriteLine();
                     return this;
                 case "0":
@@ -72,12 +71,44 @@ namespace TabloidCLI.UserInterfaceManagers
             List<Blog> blogs = _blogRepository.GetAll();
             foreach(Blog b in blogs)
             {
-                Console.WriteLine($"{b.Id}.) {b.Title}");
-                Console.WriteLine($"{b.Url}");
-                Console.WriteLine();
+                    Console.WriteLine($"- {b.Title}");
+                    Console.WriteLine($"{b.Url}");
+                    Console.WriteLine();
             }
         }
 
+        private Blog Choose(string prompt = null)
+        {
+            if(prompt == null)
+            {
+                prompt = "Please make a selection";
+            }
+
+            Console.WriteLine(prompt);
+
+            List<Blog> blogs = _blogRepository.GetAll();
+
+            for(int i = 0; i < blogs.Count; i++ )
+            {
+                Blog blog = blogs[i];
+                Console.WriteLine($"{i + 1}.) {blog.Title}");
+            }
+
+            Console.WriteLine(">");
+
+            string input = Console.ReadLine();
+
+            try
+            {
+                int choice = int.Parse(input);
+                return blogs[choice - 1];
+            }
+            catch(Exception ex)
+            {
+                Console.WriteLine("Invalid Selection");
+                return null;
+            }
+        }
         private void Add()
         {
             Console.WriteLine("What is the title of the blog?");
@@ -92,6 +123,15 @@ namespace TabloidCLI.UserInterfaceManagers
                 Url = url
             };
             _blogRepository.Insert(blog);
+        }
+
+        private void Remove()
+        {
+            Blog blogToDelete = Choose("What blog would you like to delete?");
+            if (blogToDelete != null)
+            {
+                _blogRepository.Delete(blogToDelete.Id);
+            }
         }
     }
 }
