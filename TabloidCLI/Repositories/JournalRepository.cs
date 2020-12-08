@@ -91,9 +91,13 @@ namespace TabloidCLI
                     cmd.CommandText = @"UPDATE Journal
                                             SET Title= @Title,
                                             Content = @Content,
+                                            CreateDateTime = @CreateDateTime
                                             WHERE Id = @id";
+                    cmd.Parameters.AddWithValue("@id", journal.Id);
                     cmd.Parameters.AddWithValue("@Title", journal.Title);
                     cmd.Parameters.AddWithValue("@Content", journal.Content);
+                    cmd.Parameters.AddWithValue("@CreateDateTIme", journal.CreateDateTime);
+
 
                     cmd.ExecuteNonQuery();
                 }
