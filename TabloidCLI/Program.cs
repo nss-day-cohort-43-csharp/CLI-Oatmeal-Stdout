@@ -7,22 +7,32 @@ namespace TabloidCLI
     {
         static void Main(string[] args)
         {
+            bool testToken = true;
 
-            Console.WriteLine("Would you prefer dark mode or light mode?");
-            Console.WriteLine("Enter for Dark Mode, 'L' for Light Mode: ");
-            string ColorChoice = Console.ReadLine();
+            while (testToken)
             {
-                if (ColorChoice.ToLower() == "l") 
+                Console.WriteLine("Would you prefer dark mode or light mode?");
+                Console.WriteLine("Enter for Dark Mode, 'L' for Light Mode: ");
+
+                string ColorChoice = Console.ReadLine().ToLower();
+
+                if (ColorChoice == "l")
                 {
-                    //Console.Read();
                     Console.BackgroundColor = ConsoleColor.White;
                     Console.Clear();
                     Console.ForegroundColor = ConsoleColor.Black;
-                    //Console.Write("Press any key to continue");
-                    //Console.ReadKey();
+                    testToken = false;
+                }
+                else if (string.IsNullOrEmpty(ColorChoice))
+                {
+                    testToken = false;
+                }
+                else
+                {
+                    Console.WriteLine("That is an invalid selection, please try again");
                 }
             }
-
+            
 
 
 
