@@ -55,7 +55,6 @@ namespace TabloidCLI
 
         public Post Get(int id)
         {
-            //throw new NotImplementedException();
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
@@ -183,10 +182,6 @@ namespace TabloidCLI
                     cmd.Parameters.AddWithValue("@authorId", post.Author.Id);
                     cmd.Parameters.AddWithValue("@blogId", post.Blog.Id);
 
-                    //int id = (int)cmd.ExecuteScalar();
-
-                    //post.Id = id;
-
                     cmd.ExecuteNonQuery();
                 }
             }
@@ -194,8 +189,6 @@ namespace TabloidCLI
 
         public void Update(Post post)
         {
-            Console.WriteLine($"Author ID SELECTED: {post.Author.Id}");
-            //throw new NotImplementedException();
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
@@ -223,7 +216,6 @@ namespace TabloidCLI
 
         public void Delete(int id)
         {
-            //throw new NotImplementedException();
             using (SqlConnection conn = Connection)
             {
                 conn.Open();
