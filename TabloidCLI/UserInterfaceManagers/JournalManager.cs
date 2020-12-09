@@ -59,7 +59,7 @@ namespace TabloidCLI.UserInterfaceManagers
             {
                 Console.WriteLine("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
                 Console.WriteLine();
-                Console.WriteLine($"Entry {entry.Id}: {entry.Title}");
+                Console.WriteLine($"Entry: {entry.Title}");
                 Console.WriteLine($"Created on: {entry.CreateDateTime}");
                 Console.WriteLine($"Entry Content: {entry.Content}");
                 Console.WriteLine();
@@ -77,7 +77,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
             journal.CreateDateTime = DateTime.Now;
 
-            Console.Write("What's on your mind? ");
+            Console.WriteLine();
+            Console.WriteLine("What's on your mind? ");
             journal.Content = Console.ReadLine();
 
             _journalRepository.Insert(journal);

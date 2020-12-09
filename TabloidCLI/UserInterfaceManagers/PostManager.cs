@@ -25,6 +25,7 @@ namespace TabloidCLI.UserInterfaceManagers
 
         public IUserInterfaceManager Execute()
         {
+            Console.WriteLine();
             Console.WriteLine("Post Menu");
             Console.WriteLine("1) List Posts");
             Console.WriteLine("2) Add Post");
@@ -34,6 +35,8 @@ namespace TabloidCLI.UserInterfaceManagers
 
             Console.Write("> ");
             string choice = Console.ReadLine();
+            Console.WriteLine("");
+
             switch (choice)
             {
                 case "1":
@@ -64,6 +67,8 @@ namespace TabloidCLI.UserInterfaceManagers
             List<Post> posts = _postRepository.GetAll();
             foreach (Post post in posts)
             {
+                Console.WriteLine("=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=-=");
+                Console.WriteLine();
                 Console.WriteLine($"- {post.Title}");
                 Console.WriteLine($"- {post.Url}");
                 Console.WriteLine($"- {post.PublishDateTime}");
@@ -91,7 +96,7 @@ namespace TabloidCLI.UserInterfaceManagers
             for (int i = 0; i < authors.Count; i++)
             {
                 Author author = authors[i];
-                Console.WriteLine($"{i + 1} {author.FullName}");
+                Console.WriteLine($"{i + 1} {author.FullName}"); 
             }
             post.Author = authors[int.Parse(Console.ReadLine()) - 1];
 
