@@ -92,7 +92,7 @@ namespace TabloidCLI.UserInterfaceManagers
             for (int i = 0; i < authors.Count; i++)
             {
                 Author author = authors[i];
-                Console.WriteLine($"{i + 1} {author.FullName}");
+                Console.WriteLine($"{i + 1} {author.FullName}"); 
             }
             post.Author = authors[int.Parse(Console.ReadLine()) - 1];
 

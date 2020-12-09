@@ -7,6 +7,11 @@ namespace TabloidCLI
     {
         static void Main(string[] args)
         {
+            Console.BackgroundColor = ConsoleColor.Blue;
+            Console.Clear();
+            Console.ForegroundColor = ConsoleColor.White;
+            Console.Write("Press any key to continue");
+            Console.ReadKey();
             Console.WriteLine("Welcome to Tabloid CLI");
             // MainMenuManager implements the IUserInterfaceManager interface
             IUserInterfaceManager ui = new MainMenuManager();
