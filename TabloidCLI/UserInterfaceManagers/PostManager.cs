@@ -116,7 +116,7 @@ namespace TabloidCLI.UserInterfaceManagers
             }
 
             Console.WriteLine();
-            Console.Write("New Title (press enter to leave unchanged: ");
+            Console.Write("New Title (press enter to leave unchanged): ");
             string title = Console.ReadLine();
             if (!string.IsNullOrWhiteSpace(title))
             {
@@ -130,10 +130,7 @@ namespace TabloidCLI.UserInterfaceManagers
                 postToEdit.Url = url;
             }
 
-            //DateTime publishDateTime = new DateTime();
-
             Console.Write("New Date (press enter to leave unchanged): ");
-
             try
             {
                 string publishDateTime = Console.ReadLine();
@@ -147,6 +144,35 @@ namespace TabloidCLI.UserInterfaceManagers
                 Console.WriteLine("Woops! Try again, that didn't seem to work");
 
             }
+
+            Console.WriteLine();
+            Console.Write("New Author (press enter to leave unchanged): ");
+            Console.WriteLine();
+            {
+                List<Author> authors = _authorRepository.GetAll();
+                for (int i = 0; i < authors.Count; i++)
+                {
+                    Author author = authors[i];
+                    Console.WriteLine($"{i + 1} {author.FullName}");
+                }
+                postToEdit.Author = authors[int.Parse(Console.ReadLine()) - 1];
+
+            }
+
+            Console.WriteLine();
+            Console.Write("New Blog (press enter to leave unchanged): ");
+            Console.WriteLine();
+            {
+                List<Blog> blogs = _blogRepository.GetAll();
+                for (int i = 0; i < blogs.Count; i++)
+                {
+                    Blog blog = blogs[i];
+                    Console.WriteLine($"{i + 1} {blog.Title}");
+                }
+                postToEdit.Blog = blogs[int.Parse(Console.ReadLine()) - 1];
+
+            }
+
 
             _postRepository.Update(postToEdit);
 
