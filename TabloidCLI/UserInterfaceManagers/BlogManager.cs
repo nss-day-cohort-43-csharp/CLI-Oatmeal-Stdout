@@ -39,7 +39,7 @@ namespace TabloidCLI.UserInterfaceManagers
                     List();
                     return this;
                 case "2":
-                    Console.WriteLine("We're sorry, that function is unavailable");
+                    Console.WriteLine("We're sorry, that function is unavailable at this time");
                     Console.WriteLine("Please make another selection");
                     Console.WriteLine();
                     return this;
@@ -110,19 +110,47 @@ namespace TabloidCLI.UserInterfaceManagers
         }
         private void Add()
         {
-            Console.WriteLine("What is the title of the blog?");
-            string title = Console.ReadLine();
-
-            Console.WriteLine("What is the URL for the blog?");
-            string url = Console.ReadLine();
-
-            Blog blog = new Blog
+            bool testToken = true;
+            string url = null;
+            string title = null;
+            while (testToken)
             {
-                Title = title,
-                Url = url
-            };
-            _blogRepository.Insert(blog);
+
+                Console.WriteLine("What is the title of the blog?");
+                title = Console.ReadLine();
+                if (!string.IsNullOrEmpty(title))
+                {
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("All Blogs must have a title, try again");
+                }
+            }
+
+            while (testToken)
+            {
+
+                Console.WriteLine("What is the URL of the blog?");
+                    url = Console.ReadLine();
+                if (!string.IsNullOrEmpty(url))
+                {
+                    url = Console.ReadLine();
+                    break;
+                }
+                else
+                {
+                    Console.WriteLine("All Blogs must have a URL, try again");
+                }
+            }
+            Blog blog = new Blog
+                {
+                    Title = title,
+                    Url = url
+                };
+                _blogRepository.Insert(blog); 
         }
+        
 
         private void Edit()
         {
