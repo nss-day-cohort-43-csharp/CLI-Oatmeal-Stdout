@@ -133,10 +133,19 @@ namespace TabloidCLI.UserInterfaceManagers
             //DateTime publishDateTime = new DateTime();
 
             Console.Write("New Date (press enter to leave unchanged): ");
-            DateTime publishDateTime = DateTime.Parse(Console.ReadLine());
-            if (publishDateTime != null) 
+
+            try
             {
-                postToEdit.PublishDateTime = publishDateTime;
+                string publishDateTime = Console.ReadLine();
+                if (!string.IsNullOrWhiteSpace(publishDateTime))
+                {
+                    postToEdit.PublishDateTime = DateTime.Parse(publishDateTime);
+                }
+            }
+            catch
+            {
+                Console.WriteLine("Woops! Try again, that didn't seem to work");
+
             }
 
             _postRepository.Update(postToEdit);
